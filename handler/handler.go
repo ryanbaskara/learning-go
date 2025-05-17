@@ -1,0 +1,31 @@
+package handler
+
+import (
+	"context"
+
+	"github.com/julienschmidt/httprouter"
+	"github.com/ryanbaskara/learning-go/entity"
+)
+
+type UseCase interface {
+	GetUser(ctx context.Context, id int64) (*entity.User, error)
+	ListUsers(ctx context.Context) ([]*entity.User, error)
+}
+
+type Handler struct {
+	UseCase UseCase
+}
+
+func NewHandler(useCase UseCase) *Handler {
+	return &Handler{
+		UseCase: useCase,
+	}
+}
+
+func (h *Handler) RegisterHandler() *httprouter.Router {
+	router := httprouter.New()
+	router.GET("/users", h.ListUsers)
+	router.GET("/users/:user_id", h.GetUser)
+
+	return router
+}
