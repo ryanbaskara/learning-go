@@ -7,21 +7,14 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/ryanbaskara/learning-go/config"
 )
 
 func main() {
-	serverConfig := config.NewServerConfig()
-
-	// log.Fatal(http.ListenAndServe(serverConfig.Host, serverConfig.Router))
-
-	s := &http.Server{
-		Addr:         serverConfig.Host,
-		Handler:      serverConfig.Router,
-		ReadTimeout:  310 * time.Second,
-		WriteTimeout: 310 * time.Second,
+	server, err := config.NewServer()
+	if err != nil {
+		log.Fatalln("Error when configure server : ", err)
 	}
 
 	sigChan := make(chan os.Signal, 1)
@@ -32,12 +25,12 @@ func main() {
 		if serr := s.ListenAndServe(); serr != http.ErrServerClosed {
 			log.Fatalln(serr)
 		}
-	}(s)
+	}(server.HttpServer)
 
 	<-sigChan
 
 	log.Println("Shutting down server...")
-	if err := s.Shutdown(context.Background()); err != nil {
+	if err := server.HttpServer.Shutdown(context.Background()); err != nil {
 		log.Fatalln("Something wrong when stopping server : ", err)
 		return
 	}
