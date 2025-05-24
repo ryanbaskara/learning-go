@@ -8,6 +8,7 @@ import (
 )
 
 type UseCase interface {
+	CreateUser(ctx context.Context, request *entity.CreateUserRequest) (*entity.User, error)
 	GetUser(ctx context.Context, id int64) (*entity.User, error)
 	ListUsers(ctx context.Context) ([]*entity.User, error)
 }
@@ -24,6 +25,8 @@ func NewHandler(useCase UseCase) *Handler {
 
 func (h *Handler) RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
+
+	router.POST("/users", h.CreateUser)
 	router.GET("/users", h.ListUsers)
 	router.GET("/users/:user_id", h.GetUser)
 
