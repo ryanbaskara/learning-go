@@ -25,6 +25,7 @@ func NewHandler(useCase UseCase) *Handler {
 
 func (h *Handler) RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
+	router.GET("/health", h.Health)
 
 	router.POST("/users", h.CreateUser)
 	router.GET("/users", h.ListUsers)

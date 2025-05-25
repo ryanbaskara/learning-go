@@ -19,13 +19,15 @@ func (u *Usecase) CreateUser(ctx context.Context, request *entity.CreateUserRequ
 		}
 	}
 
+	now := time.Now()
+
 	user := &entity.User{
 		Name:        request.Name,
 		Email:       request.Email,
 		PhoneNumber: request.PhoneNumber,
 		Status:      entity.UserStateActive,
-		CreatedAt:   time.Now(),
-		UpdatedAt:   time.Now(),
+		CreatedAt:   now,
+		UpdatedAt:   now,
 	}
 
 	err = u.repository.CreateUser(ctx, user)

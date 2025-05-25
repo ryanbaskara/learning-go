@@ -5,7 +5,7 @@ CREATE TABLE users (
     phone_number VARCHAR(20),
     status TINYINT,
     created_at DATETIME NOT NULL,
-    updated_at DATETIME,
+    updated_at DATETIME NOT NULL,
     INDEX (name),
     INDEX (email),
     INDEX (status)

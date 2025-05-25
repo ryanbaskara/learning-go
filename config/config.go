@@ -23,6 +23,7 @@ type DatabaseConfig struct {
 	Username     string        `default:"learning"        envconfig:"DB_MYSQL_USERNAME"`
 	Password     string        `default:"learning"        envconfig:"DB_MYSQL_PASSWORD"`
 	Database     string        `default:"learning"        envconfig:"DB_MYSQL_DATABASE"`
+	QueryString  string        `default:"parseTime=true"  envconfig:"DB_MYSQL_QUERY_STRING"`
 	MaxLifetime  time.Duration `default:"4h"              envconfig:"DB_MAX_LIFETIME"`
 	MaxIdleTime  time.Duration `default:"5m"              envconfig:"DB_MAX_IDLETIME"`
 	MaxIdleConns int           `default:"5"               envconfig:"DB_MAX_IDLECONNS"`
@@ -44,11 +45,12 @@ func loadServerConfig() (ServerConfig, error) {
 
 func (c *DatabaseConfig) databaseSourceName() string {
 	return fmt.Sprintf(
-		"%s:%s@tcp(%s:%d)/%s",
+		"%s:%s@tcp(%s:%d)/%s?%s",
 		c.Username,
 		c.Password,
 		c.Host,
 		c.Port,
 		c.Database,
+		c.QueryString,
 	)
 }
