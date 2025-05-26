@@ -8,6 +8,8 @@ import (
 	"github.com/ryanbaskara/learning-go/entity"
 )
 
+//go:generate mockgen -package=mock_usecase -source=usecase.go -destination=mocks/usecase.go
+
 type Repository interface {
 	CreateUser(ctx context.Context, user *entity.User) error
 	GetUser(ctx context.Context, id int64) (*entity.User, error)
