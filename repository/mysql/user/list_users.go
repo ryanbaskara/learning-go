@@ -1,4 +1,4 @@
-package repository
+package user
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"github.com/ryanbaskara/learning-go/entity"
 )
 
-func (r *Repository) ListUsers(ctx context.Context) ([]*entity.User, error) {
+func (r *UserRepository) ListUsers(ctx context.Context) ([]*entity.User, error) {
 	users := []*entity.User{
 		{
 			ID:   1,

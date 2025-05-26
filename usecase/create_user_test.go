@@ -16,9 +16,9 @@ type createUserSuite struct {
 	suite.Suite
 	ctx context.Context
 
-	ctrl    *gomock.Controller
-	repo    *mockusecase.MockRepository
-	usecase *usecase.Usecase
+	ctrl     *gomock.Controller
+	userRepo *mockusecase.MockUserRepository
+	usecase  *usecase.Usecase
 
 	req *entity.CreateUserRequest
 }
@@ -31,8 +31,8 @@ func (s *createUserSuite) SetupSubTest() {
 	s.ctx = context.Background()
 	s.ctrl = gomock.NewController(s.T())
 
-	s.repo = mockusecase.NewMockRepository(s.ctrl)
-	s.usecase = usecase.NewUsecase(s.repo)
+	s.userRepo = mockusecase.NewMockUserRepository(s.ctrl)
+	s.usecase = usecase.NewUsecase(s.userRepo)
 	s.req = &entity.CreateUserRequest{
 		Name:        "John",
 		Email:       "john@email.com",
@@ -47,7 +47,7 @@ func (s *createUserSuite) TearDownSubTest() {
 func (s *createUserSuite) TestCreateUser_PositiveCases() {
 	s.Run("Successfully crate user", func() {
 		gomock.InOrder(
-			s.repo.EXPECT().CreateUser(s.ctx, gomock.Any()).Do(func(_ context.Context, user *entity.User) {
+			s.userRepo.EXPECT().CreateUser(s.ctx, gomock.Any()).Do(func(_ context.Context, user *entity.User) {
 				user.ID = 1
 			}).Return(nil),
 		)
@@ -76,7 +76,7 @@ func (s *createUserSuite) TestCreateUser_NegativeCases() {
 		mockErr := errors.New("mock error")
 
 		gomock.InOrder(
-			s.repo.EXPECT().CreateUser(s.ctx, gomock.Any()).Return(mockErr),
+			s.userRepo.EXPECT().CreateUser(s.ctx, gomock.Any()).Return(mockErr),
 		)
 
 		user, err := s.usecase.CreateUser(s.ctx, s.req)

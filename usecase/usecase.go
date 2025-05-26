@@ -10,19 +10,19 @@ import (
 
 //go:generate mockgen -package=mock_usecase -source=usecase.go -destination=mocks/usecase.go
 
-type Repository interface {
+type UserRepository interface {
 	CreateUser(ctx context.Context, user *entity.User) error
 	GetUser(ctx context.Context, id int64) (*entity.User, error)
 	ListUsers(ctx context.Context) ([]*entity.User, error)
 }
 
 type Usecase struct {
-	repository Repository
+	userRepository UserRepository
 }
 
-func NewUsecase(repo Repository) *Usecase {
+func NewUsecase(userRepository UserRepository) *Usecase {
 	return &Usecase{
-		repository: repo,
+		userRepository: userRepository,
 	}
 }
 

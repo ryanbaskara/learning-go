@@ -7,7 +7,7 @@ import (
 )
 
 func (u *Usecase) ListUsers(ctx context.Context) ([]*entity.User, error) {
-	user, err := u.repository.ListUsers(ctx)
+	user, err := u.userRepository.ListUsers(ctx)
 	if err != nil {
 		println(err.Error())
 		return nil, err

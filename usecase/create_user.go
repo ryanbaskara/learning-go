@@ -30,7 +30,7 @@ func (u *Usecase) CreateUser(ctx context.Context, request *entity.CreateUserRequ
 		UpdatedAt:   now,
 	}
 
-	err = u.repository.CreateUser(ctx, user)
+	err = u.userRepository.CreateUser(ctx, user)
 	if err != nil {
 		return nil, err
 	}

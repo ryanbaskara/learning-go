@@ -1,4 +1,4 @@
-package repository
+package user
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"github.com/ryanbaskara/learning-go/entity"
 )
 
-func (r *Repository) GetUser(ctx context.Context, id int64) (*entity.User, error) {
+func (r *UserRepository) GetUser(ctx context.Context, id int64) (*entity.User, error) {
 	q := "SELECT id, name, email, phone_number, status, created_at, updated_at FROM users "
 	q += "WHERE id = ?"
 	q = r.db.Rebind(q)

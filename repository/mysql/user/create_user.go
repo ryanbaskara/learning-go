@@ -1,4 +1,4 @@
-package repository
+package user
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"github.com/ryanbaskara/learning-go/entity"
 )
 
-func (r *Repository) CreateUser(ctx context.Context, user *entity.User) error {
+func (r *UserRepository) CreateUser(ctx context.Context, user *entity.User) error {
 	q := "INSERT INTO users (name, email, phone_number, status, created_at, updated_at) "
 	q += "VALUES (:name, :email, :phone_number, :status, :created_at, :updated_at)"
 

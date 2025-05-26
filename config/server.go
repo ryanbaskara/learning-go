@@ -6,7 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"github.com/ryanbaskara/learning-go/handler"
-	"github.com/ryanbaskara/learning-go/repository"
+	userrepo "github.com/ryanbaskara/learning-go/repository/mysql/user"
 	"github.com/ryanbaskara/learning-go/usecase"
 )
 
@@ -22,8 +22,8 @@ func NewServer() (*Server, error) {
 
 	mysqlDB := newMysqlDatabase(&cfg.DatabaseConfig)
 
-	repo := repository.NewRepository(mysqlDB)
-	usecase := usecase.NewUsecase(repo)
+	userRepo := userrepo.NewUserRepository(mysqlDB)
+	usecase := usecase.NewUsecase(userRepo)
 	handler := handler.NewHandler(usecase)
 
 	httpServer := &http.Server{

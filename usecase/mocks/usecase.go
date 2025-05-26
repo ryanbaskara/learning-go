@@ -12,31 +12,31 @@ import (
 	entity "github.com/ryanbaskara/learning-go/entity"
 )
 
-// MockRepository is a mock of Repository interface.
-type MockRepository struct {
+// MockUserRepository is a mock of UserRepository interface.
+type MockUserRepository struct {
 	ctrl     *gomock.Controller
-	recorder *MockRepositoryMockRecorder
+	recorder *MockUserRepositoryMockRecorder
 }
 
-// MockRepositoryMockRecorder is the mock recorder for MockRepository.
-type MockRepositoryMockRecorder struct {
-	mock *MockRepository
+// MockUserRepositoryMockRecorder is the mock recorder for MockUserRepository.
+type MockUserRepositoryMockRecorder struct {
+	mock *MockUserRepository
 }
 
-// NewMockRepository creates a new mock instance.
-func NewMockRepository(ctrl *gomock.Controller) *MockRepository {
-	mock := &MockRepository{ctrl: ctrl}
-	mock.recorder = &MockRepositoryMockRecorder{mock}
+// NewMockUserRepository creates a new mock instance.
+func NewMockUserRepository(ctrl *gomock.Controller) *MockUserRepository {
+	mock := &MockUserRepository{ctrl: ctrl}
+	mock.recorder = &MockUserRepositoryMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockRepository) EXPECT() *MockRepositoryMockRecorder {
+func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 	return m.recorder
 }
 
 // CreateUser mocks base method.
-func (m *MockRepository) CreateUser(ctx context.Context, user *entity.User) error {
+func (m *MockUserRepository) CreateUser(ctx context.Context, user *entity.User) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateUser", ctx, user)
 	ret0, _ := ret[0].(error)
@@ -44,13 +44,13 @@ func (m *MockRepository) CreateUser(ctx context.Context, user *entity.User) erro
 }
 
 // CreateUser indicates an expected call of CreateUser.
-func (mr *MockRepositoryMockRecorder) CreateUser(ctx, user interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) CreateUser(ctx, user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockRepository)(nil).CreateUser), ctx, user)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockUserRepository)(nil).CreateUser), ctx, user)
 }
 
 // GetUser mocks base method.
-func (m *MockRepository) GetUser(ctx context.Context, id int64) (*entity.User, error) {
+func (m *MockUserRepository) GetUser(ctx context.Context, id int64) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUser", ctx, id)
 	ret0, _ := ret[0].(*entity.User)
@@ -59,13 +59,13 @@ func (m *MockRepository) GetUser(ctx context.Context, id int64) (*entity.User, e
 }
 
 // GetUser indicates an expected call of GetUser.
-func (mr *MockRepositoryMockRecorder) GetUser(ctx, id interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) GetUser(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockRepository)(nil).GetUser), ctx, id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockUserRepository)(nil).GetUser), ctx, id)
 }
 
 // ListUsers mocks base method.
-func (m *MockRepository) ListUsers(ctx context.Context) ([]*entity.User, error) {
+func (m *MockUserRepository) ListUsers(ctx context.Context) ([]*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListUsers", ctx)
 	ret0, _ := ret[0].([]*entity.User)
@@ -74,7 +74,7 @@ func (m *MockRepository) ListUsers(ctx context.Context) ([]*entity.User, error) 
 }
 
 // ListUsers indicates an expected call of ListUsers.
-func (mr *MockRepositoryMockRecorder) ListUsers(ctx interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) ListUsers(ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUsers", reflect.TypeOf((*MockRepository)(nil).ListUsers), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUsers", reflect.TypeOf((*MockUserRepository)(nil).ListUsers), ctx)
 }

@@ -16,9 +16,9 @@ type getUserSuite struct {
 	suite.Suite
 	ctx context.Context
 
-	ctrl    *gomock.Controller
-	repo    *mockusecase.MockRepository
-	usecase *usecase.Usecase
+	ctrl     *gomock.Controller
+	userRepo *mockusecase.MockUserRepository
+	usecase  *usecase.Usecase
 }
 
 func TestGetUserSuite(t *testing.T) {
@@ -29,8 +29,8 @@ func (s *getUserSuite) SetupSubTest() {
 	s.ctx = context.Background()
 	s.ctrl = gomock.NewController(s.T())
 
-	s.repo = mockusecase.NewMockRepository(s.ctrl)
-	s.usecase = usecase.NewUsecase(s.repo)
+	s.userRepo = mockusecase.NewMockUserRepository(s.ctrl)
+	s.usecase = usecase.NewUsecase(s.userRepo)
 }
 
 func (s *getUserSuite) TearDownSubTest() {
@@ -45,7 +45,7 @@ func (s *getUserSuite) TestGetUser_PositiveCases() {
 		}
 
 		gomock.InOrder(
-			s.repo.EXPECT().GetUser(s.ctx, int64(1)).Return(mockUser, nil),
+			s.userRepo.EXPECT().GetUser(s.ctx, int64(1)).Return(mockUser, nil),
 		)
 
 		user, err := s.usecase.GetUser(s.ctx, 1)
@@ -60,7 +60,7 @@ func (s *getUserSuite) TestGetUser_NegativeCases() {
 		mockErr := errors.New("mock error")
 
 		gomock.InOrder(
-			s.repo.EXPECT().GetUser(s.ctx, int64(1)).Return(nil, mockErr),
+			s.userRepo.EXPECT().GetUser(s.ctx, int64(1)).Return(nil, mockErr),
 		)
 
 		user, err := s.usecase.GetUser(s.ctx, 1)
