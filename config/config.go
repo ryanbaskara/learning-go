@@ -15,6 +15,7 @@ type ServerConfig struct {
 	WriteTimeout time.Duration `default:"5m"            envconfig:"SERVER_WRITE_TIMEOUT"`
 
 	DatabaseConfig
+	RedisConfig
 }
 
 type DatabaseConfig struct {
@@ -28,6 +29,12 @@ type DatabaseConfig struct {
 	MaxIdleTime  time.Duration `default:"5m"              envconfig:"DB_MAX_IDLETIME"`
 	MaxIdleConns int           `default:"5"               envconfig:"DB_MAX_IDLECONNS"`
 	MaxOpenConns int           `default:"7"               envconfig:"DB_MAX_OPENCONNS"`
+}
+
+type RedisConfig struct {
+	Host     string `default:"127.0.0.1:6379"    envconfig:"CACHE_REDIS_HOST"`
+	DB       int    `default:"0"                 envconfig:"CACHE_REDIS_DB"`
+	Password string `envconfig:"CACHE_REDIS_PASSWORD"`
 }
 
 func loadServerConfig() (ServerConfig, error) {

@@ -5,7 +5,9 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
+	"github.com/redis/go-redis/v9"
 	"github.com/ryanbaskara/learning-go/handler"
+	"github.com/ryanbaskara/learning-go/repository/cache"
 	userrepo "github.com/ryanbaskara/learning-go/repository/mysql/user"
 	"github.com/ryanbaskara/learning-go/usecase"
 )
@@ -21,9 +23,11 @@ func NewServer() (*Server, error) {
 	}
 
 	mysqlDB := newMysqlDatabase(&cfg.DatabaseConfig)
+	redis := newRedis(&cfg.RedisConfig)
 
 	userRepo := userrepo.NewUserRepository(mysqlDB)
-	usecase := usecase.NewUsecase(userRepo)
+	userCacheRepo := cache.NewUserCacheRepo(redis)
+	usecase := usecase.NewUsecase(userRepo, userCacheRepo)
 	handler := handler.NewHandler(usecase)
 
 	httpServer := &http.Server{
@@ -54,4 +58,14 @@ func newMysqlDatabase(cfg *DatabaseConfig) *sqlx.DB {
 	sqlxDB.SetConnMaxLifetime(cfg.MaxLifetime)
 
 	return sqlxDB
+}
+
+func newRedis(cfg *RedisConfig) *redis.Client {
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     cfg.Host,
+		Password: cfg.Password,
+		DB:       cfg.DB,
+	})
+
+	return rdb
 }

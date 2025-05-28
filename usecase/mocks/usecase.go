@@ -78,3 +78,55 @@ func (mr *MockUserRepositoryMockRecorder) ListUsers(ctx interface{}) *gomock.Cal
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUsers", reflect.TypeOf((*MockUserRepository)(nil).ListUsers), ctx)
 }
+
+// MockUserCacheRepository is a mock of UserCacheRepository interface.
+type MockUserCacheRepository struct {
+	ctrl     *gomock.Controller
+	recorder *MockUserCacheRepositoryMockRecorder
+}
+
+// MockUserCacheRepositoryMockRecorder is the mock recorder for MockUserCacheRepository.
+type MockUserCacheRepositoryMockRecorder struct {
+	mock *MockUserCacheRepository
+}
+
+// NewMockUserCacheRepository creates a new mock instance.
+func NewMockUserCacheRepository(ctrl *gomock.Controller) *MockUserCacheRepository {
+	mock := &MockUserCacheRepository{ctrl: ctrl}
+	mock.recorder = &MockUserCacheRepositoryMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockUserCacheRepository) EXPECT() *MockUserCacheRepositoryMockRecorder {
+	return m.recorder
+}
+
+// GetUser mocks base method.
+func (m *MockUserCacheRepository) GetUser(ctx context.Context, id int64) (*entity.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUser", ctx, id)
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUser indicates an expected call of GetUser.
+func (mr *MockUserCacheRepositoryMockRecorder) GetUser(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockUserCacheRepository)(nil).GetUser), ctx, id)
+}
+
+// SetUser mocks base method.
+func (m *MockUserCacheRepository) SetUser(ctx context.Context, user *entity.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SetUser", ctx, user)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// SetUser indicates an expected call of SetUser.
+func (mr *MockUserCacheRepositoryMockRecorder) SetUser(ctx, user interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetUser", reflect.TypeOf((*MockUserCacheRepository)(nil).SetUser), ctx, user)
+}

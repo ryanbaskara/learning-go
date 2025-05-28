@@ -16,13 +16,23 @@ type UserRepository interface {
 	ListUsers(ctx context.Context) ([]*entity.User, error)
 }
 
-type Usecase struct {
-	userRepository UserRepository
+type UserCacheRepository interface {
+	GetUser(ctx context.Context, id int64) (*entity.User, error)
+	SetUser(ctx context.Context, user *entity.User) error
 }
 
-func NewUsecase(userRepository UserRepository) *Usecase {
+type Usecase struct {
+	userRepository      UserRepository
+	userCacheRepository UserCacheRepository
+}
+
+func NewUsecase(
+	userRepository UserRepository,
+	userCacheRepository UserCacheRepository,
+) *Usecase {
 	return &Usecase{
-		userRepository: userRepository,
+		userRepository:      userRepository,
+		userCacheRepository: userCacheRepository,
 	}
 }
 
