@@ -11,6 +11,7 @@ type UseCase interface {
 	CreateUser(ctx context.Context, request *entity.CreateUserRequest) (*entity.User, error)
 	GetUser(ctx context.Context, id int64) (*entity.User, error)
 	ListUsers(ctx context.Context) ([]*entity.User, error)
+	UpdateUser(ctx context.Context, req *entity.UpdateUserRequest) (*entity.User, error)
 }
 
 type Handler struct {
@@ -30,6 +31,7 @@ func (h *Handler) RegisterHandler() *httprouter.Router {
 	router.POST("/users", h.CreateUser)
 	router.GET("/users", h.ListUsers)
 	router.GET("/users/:user_id", h.GetUser)
+	router.PATCH("/users/:user_id", h.UpdateUser)
 
 	return router
 }

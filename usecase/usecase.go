@@ -14,9 +14,11 @@ type UserRepository interface {
 	CreateUser(ctx context.Context, user *entity.User) error
 	GetUser(ctx context.Context, id int64) (*entity.User, error)
 	ListUsers(ctx context.Context) ([]*entity.User, error)
+	UpdateUser(ctx context.Context, user *entity.User) error
 }
 
 type UserCacheRepository interface {
+	DeleteUser(ctx context.Context, id int64) error
 	GetUser(ctx context.Context, id int64) (*entity.User, error)
 	SetUser(ctx context.Context, user *entity.User) error
 }

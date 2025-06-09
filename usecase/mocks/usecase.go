@@ -79,6 +79,20 @@ func (mr *MockUserRepositoryMockRecorder) ListUsers(ctx interface{}) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUsers", reflect.TypeOf((*MockUserRepository)(nil).ListUsers), ctx)
 }
 
+// UpdateUser mocks base method.
+func (m *MockUserRepository) UpdateUser(ctx context.Context, user *entity.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateUser", ctx, user)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateUser indicates an expected call of UpdateUser.
+func (mr *MockUserRepositoryMockRecorder) UpdateUser(ctx, user interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockUserRepository)(nil).UpdateUser), ctx, user)
+}
+
 // MockUserCacheRepository is a mock of UserCacheRepository interface.
 type MockUserCacheRepository struct {
 	ctrl     *gomock.Controller
@@ -100,6 +114,20 @@ func NewMockUserCacheRepository(ctrl *gomock.Controller) *MockUserCacheRepositor
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockUserCacheRepository) EXPECT() *MockUserCacheRepositoryMockRecorder {
 	return m.recorder
+}
+
+// DeleteUser mocks base method.
+func (m *MockUserCacheRepository) DeleteUser(ctx context.Context, id int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteUser", ctx, id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteUser indicates an expected call of DeleteUser.
+func (mr *MockUserCacheRepositoryMockRecorder) DeleteUser(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockUserCacheRepository)(nil).DeleteUser), ctx, id)
 }
 
 // GetUser mocks base method.

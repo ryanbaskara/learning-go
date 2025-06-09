@@ -27,13 +27,13 @@ func (r *UserCacheRepo) SetUser(ctx context.Context, user *entity.User) error {
 	if err != nil {
 		return err
 	}
-	r.redisClient.Set(ctx, generateUserKey(user.ID), b, TTL)
+	r.redisClient.Set(ctx, buildUserKey(user.ID), b, TTL)
 
 	return nil
 }
 
 func (r *UserCacheRepo) GetUser(ctx context.Context, id int64) (*entity.User, error) {
-	val, err := r.redisClient.Get(ctx, generateUserKey(id)).Result()
+	val, err := r.redisClient.Get(ctx, buildUserKey(id)).Result()
 	if err == redis.Nil {
 		return nil, nil
 	} else if err != nil {
@@ -49,6 +49,10 @@ func (r *UserCacheRepo) GetUser(ctx context.Context, id int64) (*entity.User, er
 	return &user, nil
 }
 
-func generateUserKey(id int64) string {
+func (r *UserCacheRepo) DeleteUser(ctx context.Context, id int64) error {
+	return r.redisClient.Del(ctx, buildUserKey(id)).Err()
+}
+
+func buildUserKey(id int64) string {
 	return fmt.Sprintf("user:%d", id)
 }

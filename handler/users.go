@@ -51,3 +51,28 @@ func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request, params httprou
 	}
 	WriteData(w, 200, user)
 }
+
+func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	ctx := r.Context()
+
+	var userReq entity.UpdateUserRequest
+	if err := UnmarshalRequestBody(r, &userReq); err != nil {
+		WriteError(w, 400, err)
+		return
+	}
+
+	userID, err := strconv.ParseInt(params.ByName("user_id"), 10, 64)
+	if err != nil {
+		WriteError(w, 400, err)
+		return
+	}
+	userReq.ID = userID
+
+	user, err := h.UseCase.UpdateUser(ctx, &userReq)
+	if err != nil {
+		WriteError(w, 500, err)
+		return
+	}
+
+	WriteData(w, 200, user)
+}
