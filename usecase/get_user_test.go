@@ -32,7 +32,7 @@ func (s *getUserSuite) SetupSubTest() {
 
 	s.userRepo = mockusecase.NewMockUserRepository(s.ctrl)
 	s.userCacheRepo = mockusecase.NewMockUserCacheRepository(s.ctrl)
-	s.usecase = usecase.NewUsecase(s.userRepo, s.userCacheRepo)
+	s.usecase = usecase.NewUsecase(s.userRepo, s.userCacheRepo, nil)
 }
 
 func (s *getUserSuite) TearDownSubTest() {

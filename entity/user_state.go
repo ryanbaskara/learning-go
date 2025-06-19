@@ -11,6 +11,7 @@ const (
 	UserStateUnspecified UserState = iota
 	UserStateActive
 	UserStateInactive
+	UserStatePending
 	UserStateSuspend
 )
 
@@ -19,6 +20,7 @@ var (
 		UserStateUnspecified: "unspecified",
 		UserStateActive:      "active",
 		UserStateInactive:    "inactive",
+		UserStatePending:     "pending",
 		UserStateSuspend:     "suspend",
 	}
 
@@ -26,6 +28,7 @@ var (
 		"unspecified": UserStateUnspecified,
 		"active":      UserStateActive,
 		"inactive":    UserStateInactive,
+		"pending":     UserStatePending,
 		"suspend":     UserStateSuspend,
 	}
 )

@@ -23,18 +23,25 @@ type UserCacheRepository interface {
 	SetUser(ctx context.Context, user *entity.User) error
 }
 
+type UserEventPublisher interface {
+	PublishVerifyUser(ctx context.Context, user *entity.User) error
+}
+
 type Usecase struct {
 	userRepository      UserRepository
 	userCacheRepository UserCacheRepository
+	userEventPublisher  UserEventPublisher
 }
 
 func NewUsecase(
 	userRepository UserRepository,
 	userCacheRepository UserCacheRepository,
+	userEventPublisher UserEventPublisher,
 ) *Usecase {
 	return &Usecase{
 		userRepository:      userRepository,
 		userCacheRepository: userCacheRepository,
+		userEventPublisher:  userEventPublisher,
 	}
 }
 

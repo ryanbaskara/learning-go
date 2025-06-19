@@ -42,6 +42,10 @@ Simple app to learn golang. Everything new knowledge can be docummented here.
    ```
 
 1. Web service is available on port 7172.
+1. Run consumer
+   ```sh
+   go run app/consumer/userverification/main.go
+   ```
 
 ### DB Migrate
 1. Install DB migrate tools (optional)
@@ -64,6 +68,36 @@ Simple app to learn golang. Everything new knowledge can be docummented here.
    migrate -path db/migrations -database "mysql://user:password@tcp(localhost:3306)/dbname" up
    ```
    Replace user, password, and dbname following env config for mysql
+
+### Kafka Topics
+1. Check container name for kafka
+   ```sh
+   docker ps
+   ```
+1. Exec kafka container
+   ```sh
+   docker exec -it kafka bash
+   ```
+1. Create topic for user.verify-user-job
+   ```sh
+   kafka-topics.sh \
+   --create \
+   --bootstrap-server localhost:9092 \
+   --replication-factor 1 \
+   --partitions 1 \
+   --topic learning.verify-user-job
+   ```
+1. Check list topics
+   ```
+   kafka-topics.sh --list --bootstrap-server localhost:9092
+   ```
+1. Check consumer lag
+   ```sh
+   kafka-consumer-groups.sh \
+   --bootstrap-server localhost:9092 \
+   --group users-group \
+   --describe
+   ```
 
 ### Dependencies
 - [Kafka](https://kafka.apache.org/)

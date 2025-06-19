@@ -36,5 +36,11 @@ func (u *Usecase) UpdateUser(ctx context.Context, req *entity.UpdateUserRequest)
 
 	u.userCacheRepository.DeleteUser(ctx, user.ID)
 
+	err = u.userEventPublisher.PublishVerifyUser(ctx, user)
+	if err != nil {
+		println(err.Error())
+		return nil, err
+	}
+
 	return user, nil
 }

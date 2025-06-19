@@ -16,6 +16,7 @@ type ServerConfig struct {
 
 	DatabaseConfig
 	RedisConfig
+	KafkaConfig
 }
 
 type DatabaseConfig struct {
@@ -35,6 +36,12 @@ type RedisConfig struct {
 	Host     string `default:"127.0.0.1:6379"    envconfig:"CACHE_REDIS_HOST"`
 	DB       int    `default:"0"                 envconfig:"CACHE_REDIS_DB"`
 	Password string `envconfig:"CACHE_REDIS_PASSWORD"`
+}
+
+type KafkaConfig struct {
+	ProducerBrokers         string `default:"127.0.0.1:9092"           envconfig:"KAFKA_PRODUCER_BROKERS"`
+	ConsumerBrokers         string `default:"127.0.0.1:9092"           envconfig:"KAFKA_CONSUMER_BROKERS"`
+	EventVerifyUserJobTopic string `default:"learning.verify-user-job" envconfig:"KAFKA_EVENT_VERIFY_USER_JOB_TOPIC"`
 }
 
 func loadServerConfig() (ServerConfig, error) {

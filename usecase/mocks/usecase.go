@@ -158,3 +158,40 @@ func (mr *MockUserCacheRepositoryMockRecorder) SetUser(ctx, user interface{}) *g
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetUser", reflect.TypeOf((*MockUserCacheRepository)(nil).SetUser), ctx, user)
 }
+
+// MockUserEventPublisher is a mock of UserEventPublisher interface.
+type MockUserEventPublisher struct {
+	ctrl     *gomock.Controller
+	recorder *MockUserEventPublisherMockRecorder
+}
+
+// MockUserEventPublisherMockRecorder is the mock recorder for MockUserEventPublisher.
+type MockUserEventPublisherMockRecorder struct {
+	mock *MockUserEventPublisher
+}
+
+// NewMockUserEventPublisher creates a new mock instance.
+func NewMockUserEventPublisher(ctrl *gomock.Controller) *MockUserEventPublisher {
+	mock := &MockUserEventPublisher{ctrl: ctrl}
+	mock.recorder = &MockUserEventPublisherMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockUserEventPublisher) EXPECT() *MockUserEventPublisherMockRecorder {
+	return m.recorder
+}
+
+// PublishVerifyUser mocks base method.
+func (m *MockUserEventPublisher) PublishVerifyUser(ctx context.Context, user *entity.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "PublishVerifyUser", ctx, user)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// PublishVerifyUser indicates an expected call of PublishVerifyUser.
+func (mr *MockUserEventPublisherMockRecorder) PublishVerifyUser(ctx, user interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PublishVerifyUser", reflect.TypeOf((*MockUserEventPublisher)(nil).PublishVerifyUser), ctx, user)
+}

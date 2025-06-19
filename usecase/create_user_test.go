@@ -32,7 +32,7 @@ func (s *createUserSuite) SetupSubTest() {
 	s.ctrl = gomock.NewController(s.T())
 
 	s.userRepo = mockusecase.NewMockUserRepository(s.ctrl)
-	s.usecase = usecase.NewUsecase(s.userRepo, nil)
+	s.usecase = usecase.NewUsecase(s.userRepo, nil, nil)
 	s.req = &entity.CreateUserRequest{
 		Name:        "John",
 		Email:       "john@email.com",
