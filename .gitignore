@@ -8,7 +8,6 @@
 # migrations temporary folders
 bin
 tmp/*
-go/
 dev/public_keys
 dev/private_keys
 
