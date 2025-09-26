@@ -19,6 +19,14 @@ type ServerConfig struct {
 	KafkaConfig
 }
 
+type RPCConfig struct {
+	RPCHost string `envconfig:"RPC_HOST"`
+
+	DatabaseConfig
+	RedisConfig
+	KafkaConfig
+}
+
 type DatabaseConfig struct {
 	Host         string        `default:"127.0.0.1"       envconfig:"DB_MYSQL_HOST"`
 	Port         int           `default:"3306"            envconfig:"DB_MYSQL_PORT"`
@@ -46,6 +54,19 @@ type KafkaConfig struct {
 
 func loadServerConfig() (ServerConfig, error) {
 	var config ServerConfig
+	// load from .env if exists
+	if _, err := os.Stat(".env"); err == nil {
+		if err := gotenv.Load(); err != nil {
+			return config, err
+		}
+	}
+
+	err := envconfig.Process("server", &config)
+	return config, err
+}
+
+func loadRpcConfig() (RPCConfig, error) {
+	var config RPCConfig
 	// load from .env if exists
 	if _, err := os.Stat(".env"); err == nil {
 		if err := gotenv.Load(); err != nil {
