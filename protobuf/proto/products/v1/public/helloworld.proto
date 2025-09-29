@@ -2,11 +2,18 @@ syntax = "proto3";
 
 package helloworld;
 
+import "google/api/annotations.proto";
+
 option go_package = "go.ryanbaskara.io/go/protocgen/products/v1/public";
 
 // Service definition
 service Greeter {
-  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+    option (google.api.http) = {
+      post: "/v1/hello",
+      body: "*"
+    };
+  }
 }
 
 // Request message

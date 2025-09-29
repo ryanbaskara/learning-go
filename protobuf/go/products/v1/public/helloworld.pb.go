@@ -7,6 +7,7 @@
 package public
 
 import (
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -116,14 +117,14 @@ var File_products_v1_public_helloworld_proto protoreflect.FileDescriptor
 const file_products_v1_public_helloworld_proto_rawDesc = "" +
 	"\n" +
 	"#products/v1/public/helloworld.proto\x12\n" +
-	"helloworld\"\"\n" +
+	"helloworld\x1a\x1cgoogle/api/annotations.proto\"\"\n" +
 	"\fHelloRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"&\n" +
 	"\n" +
 	"HelloReply\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2G\n" +
-	"\aGreeter\x12<\n" +
-	"\bSayHello\x12\x18.helloworld.HelloRequest\x1a\x16.helloworld.HelloReplyB3Z1go.ryanbaskara.io/go/protocgen/products/v1/publicb\x06proto3"
+	"\amessage\x18\x01 \x01(\tR\amessage2]\n" +
+	"\aGreeter\x12R\n" +
+	"\bSayHello\x12\x18.helloworld.HelloRequest\x1a\x16.helloworld.HelloReply\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01*\"\t/v1/helloB3Z1go.ryanbaskara.io/go/protocgen/products/v1/publicb\x06proto3"
 
 var (
 	file_products_v1_public_helloworld_proto_rawDescOnce sync.Once
