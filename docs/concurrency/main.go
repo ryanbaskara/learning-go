@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// slide: https://golang-talks.imrenagi.com/2020/concurrency101.slide#7
+
 func main() {
 	fmt.Println("Goroutine")
 	// simpleGoroutine()
