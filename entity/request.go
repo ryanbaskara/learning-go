@@ -12,3 +12,13 @@ type UpdateUserRequest struct {
 	Email       string `json:"email"`
 	PhoneNumber string `json:"phone_number"`
 }
+
+type CreateEventRequest struct {
+	UserID   string                 `json:"user_id" validate:"required"`
+	Type     string                 `json:"type" validate:"required"`
+	Metadata map[string]interface{} `json:"metadata" validate:"required"`
+}
+
+type ListEventRequest struct {
+	UserID string
+}

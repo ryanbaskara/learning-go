@@ -1,0 +1,7 @@
+CREATE TABLE events (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    metadata JSON,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

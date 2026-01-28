@@ -14,19 +14,32 @@ type UseCase interface {
 	UpdateUser(ctx context.Context, req *entity.UpdateUserRequest) (*entity.User, error)
 }
 
-type Handler struct {
-	UseCase UseCase
+type EventUseCase interface {
+	CreateEvent(ctx context.Context, req *entity.CreateEventRequest) (*entity.Event, error)
+	ListEventByUserID(ctx context.Context, req *entity.ListEventRequest) ([]*entity.Event, error)
 }
 
-func NewHandler(useCase UseCase) *Handler {
+type Handler struct {
+	UseCase      UseCase
+	eventUseCase EventUseCase
+}
+
+func NewHandler(
+	useCase UseCase,
+	eventUseCase EventUseCase,
+) *Handler {
 	return &Handler{
-		UseCase: useCase,
+		UseCase:      useCase,
+		eventUseCase: eventUseCase,
 	}
 }
 
 func (h *Handler) RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
 	router.GET("/health", h.Health)
+
+	router.POST("/events", h.CreateEvent)
+	router.GET("/events", h.ListEvents)
 
 	router.POST("/users", h.CreateUser)
 	router.GET("/users", h.ListUsers)

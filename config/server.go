@@ -7,8 +7,10 @@ import (
 	"github.com/ryanbaskara/learning-go/eventpublisher"
 	"github.com/ryanbaskara/learning-go/handler"
 	"github.com/ryanbaskara/learning-go/repository/cache"
+	eventrepo "github.com/ryanbaskara/learning-go/repository/mysql/event"
 	userrepo "github.com/ryanbaskara/learning-go/repository/mysql/user"
 	"github.com/ryanbaskara/learning-go/usecase"
+	eventusecase "github.com/ryanbaskara/learning-go/usecase/event"
 )
 
 type Server struct {
@@ -26,10 +28,12 @@ func NewServer() (*Server, error) {
 	kafkaProducer := newKafkaProducer(&cfg.KafkaConfig)
 
 	userRepo := userrepo.NewUserRepository(mysqlDB)
+	eventRepo := eventrepo.NewEventRepository(mysqlDB)
 	userEventPublisher := eventpublisher.NewUserEventPublisher(kafkaProducer, cfg.KafkaConfig.EventVerifyUserJobTopic)
 	userCacheRepo := cache.NewUserCacheRepo(redis)
 	usecase := usecase.NewUsecase(userRepo, userCacheRepo, userEventPublisher)
-	handler := handler.NewHandler(usecase)
+	eventUsecase := eventusecase.NewEventUsecase(eventRepo)
+	handler := handler.NewHandler(usecase, eventUsecase)
 
 	httpServer := &http.Server{
 		Addr:         cfg.ServerHost,

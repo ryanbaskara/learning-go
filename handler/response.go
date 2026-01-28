@@ -3,6 +3,8 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/ryanbaskara/learning-go/errors"
 )
 
 type Meta map[string]interface{}
@@ -36,6 +38,17 @@ func WriteMessage(w http.ResponseWriter, httpStatus int, message string) {
 }
 
 func WriteError(w http.ResponseWriter, httpStatus int, err error) {
+	WriteMessage(w, httpStatus, err.Error())
+}
+
+func WriteErrorDetail(w http.ResponseWriter, err error) {
+	var httpStatus int
+	switch errOrig := err.(type) {
+	case *errors.ErrorDetail:
+		httpStatus = errOrig.Code
+	default:
+		httpStatus = http.StatusInternalServerError
+	}
 	WriteMessage(w, httpStatus, err.Error())
 }
 
